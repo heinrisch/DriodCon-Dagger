@@ -1,16 +1,17 @@
 package com.wrapp.henrikdroidcon.app;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.wrapp.henrikdroidcon.app.api.Api;
 
 import javax.inject.Inject;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     @Inject Api api;
 
@@ -18,9 +19,10 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DriodconApplication.get().inject(this);
+        DriodconApplication.getInjectable(this).inject(this);
 
-        api.getTweets();
+        TextView textView = (TextView) findViewById(R.id.text);
+        textView.setText(api.getTweet());
     }
 
 
